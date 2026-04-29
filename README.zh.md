@@ -2,7 +2,27 @@
 
 [English](README.md) · 简体中文
 
-四个 YOLO 检测模型，用来对室内巡检图里的软管做异常检查。每个模型只盯一种异常，并自带在人工复核真值集上调过的运行参数（置信度阈值 + 面积比上下限），调用方拿来即用，不用自己再扫一遍阈值。
+> 四个预训练 YOLO 检测器，专做软管巡检——老化、喉箍异常、软管类型、穿墙。
+> PyTorch + ONNX 权重，自带人工真值集调过的运行参数。
+
+[![CI](https://github.com/ychenfen/hose-anomaly-detection/actions/workflows/ci.yml/badge.svg)](https://github.com/ychenfen/hose-anomaly-detection/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+![Python](https://img.shields.io/badge/python-3.9%2B-blue)
+![Models](https://img.shields.io/badge/models-4_YOLO_detectors-green)
+
+![流水线结构](examples/architecture.png)
+
+跑一张图试试：
+
+```bash
+python3 pipeline.py --image examples/demo.jpg --save-dir examples/runs
+```
+
+（往 `examples/demo.jpg` 放什么，看 [examples/README.md](examples/README.md)。）
+
+---
+
+每个模型只盯一种异常，并自带在人工复核真值集上调过的运行参数（置信度阈值 + 面积比上下限），调用方拿来即用，不用自己再扫一遍阈值。
 
 | 模型 | 类别 | 输入尺寸 | 检测目标 | 运行 conf |
 |---|---|---|---|---|

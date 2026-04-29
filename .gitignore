@@ -6,6 +6,9 @@ __pycache__/
 # local experiments / tuning runs — keep weights in models/ only
 runs/
 outputs/
+examples/runs/
+examples/demo.jpg
+examples/demo.png
 *.cache
 
 # editor / venv

@@ -2,7 +2,28 @@
 
 English · [简体中文](README.zh.md)
 
-Four YOLO detectors for inspecting flexible hoses in indoor inspection imagery.
+> Four pretrained YOLO detectors for flexible-hose inspection — aging,
+> abnormal clamps, hose type, wall penetration. PyTorch + ONNX weights with
+> reviewed-truth runtime profiles included.
+
+[![CI](https://github.com/ychenfen/hose-anomaly-detection/actions/workflows/ci.yml/badge.svg)](https://github.com/ychenfen/hose-anomaly-detection/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+![Python](https://img.shields.io/badge/python-3.9%2B-blue)
+![Models](https://img.shields.io/badge/models-4_YOLO_detectors-green)
+
+![pipeline architecture](examples/architecture.png)
+
+Try it on one image:
+
+```bash
+python3 pipeline.py --image examples/demo.jpg --save-dir examples/runs
+```
+
+(see [examples/README.md](examples/README.md) for what to drop into
+`examples/demo.jpg`).
+
+---
+
 Each model targets one anomaly type and ships with a recommended runtime
 profile (confidence threshold and area gates) tuned on hand-reviewed truth
 sets, so callers do not have to discover thresholds themselves.
