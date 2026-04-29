@@ -1,5 +1,7 @@
 # hose-anomaly-detection
 
+English · [简体中文](README.zh.md)
+
 Four YOLO detectors for inspecting flexible hoses in indoor inspection imagery.
 Each model targets one anomaly type and ships with a recommended runtime
 profile (confidence threshold and area gates) tuned on hand-reviewed truth
