@@ -1,0 +1,43 @@
+{
+  "name": "hose_type_metal",
+  "task": "detect",
+  "framework": "ultralytics-yolo",
+  "input_size": 640,
+  "classes": ["metal_clad_hose", "non_standard_hose"],
+  "display_name": "Metal-clad / non-standard hose type",
+  "weights": {
+    "pytorch": "hose_type_metal_best.pt",
+    "onnx": "hose_type_metal_best.onnx"
+  },
+  "recommended_runtime": {
+    "metal_clad_hose_conf": 0.5,
+    "non_standard_hose_conf": 0.45,
+    "prefer_high_risk_min_conf_gap": 0.2,
+    "min_area_ratio": 0.001,
+    "max_area_ratio": 0.85,
+    "notes": "Two-class detector. Use a higher threshold for the safer class (metal_clad) and a slightly lower one for the higher-risk class (non_standard); when both fire on the same crop, prefer the higher-risk class only if its score beats metal_clad by at least the conf gap."
+  },
+  "metrics_on_reviewed_truth": {
+    "combined": {
+      "tp": 102, "fp": 17, "tn": 162, "fn": 25,
+      "precision": 0.857,
+      "recall": 0.803,
+      "f1": 0.829
+    },
+    "buckets_count": 5,
+    "buckets_total_images": 306
+  },
+  "metrics_on_raw_replay": {
+    "high_threshold": 0.45,
+    "gap": 0.2,
+    "target_hit_rate": 0.663,
+    "normal_false_rate": 0.079,
+    "other_negative_false_rate": 0.272,
+    "mixed_hit_rate": 0.074
+  },
+  "training": {
+    "base": "yolo (ultralytics) detection backbone",
+    "regime": "iterative reviewed-truth fine-tuning across 5 buckets, with a final pass targeting normal-like-but-actually-non-standard cases",
+    "loss": "default ultralytics detection loss"
+  }
+}

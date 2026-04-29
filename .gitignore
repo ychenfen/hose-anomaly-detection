@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+*.pyo
+.DS_Store
+
+# local experiments / tuning runs — keep weights in models/ only
+runs/
+outputs/
+*.cache
+
+# editor / venv
+.venv/
+.env
+.idea/
+.vscode/

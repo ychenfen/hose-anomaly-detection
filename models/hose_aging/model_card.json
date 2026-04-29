@@ -1,0 +1,32 @@
+{
+  "name": "hose_aging",
+  "task": "detect",
+  "framework": "ultralytics-yolo",
+  "input_size": 832,
+  "classes": ["hose aging"],
+  "weights": {
+    "pytorch": "hose_aging_best.pt"
+  },
+  "recommended_runtime": {
+    "conf": 0.5,
+    "min_area_ratio": 0.0005,
+    "notes": "Anomaly-only profile: only fires on clearly aged / oxidized / cracked / corroded / damaged hose. Normal old hose, blue/green hose, and pure negative scenes are intentionally left empty."
+  },
+  "metrics_on_reviewed_truth": {
+    "profile": {"conf": 0.5, "min_area_ratio": 0.0005},
+    "combined": {
+      "tp": 55, "fp": 9, "tn": 252, "fn": 19,
+      "precision": 0.859,
+      "recall": 0.743,
+      "f1": 0.797
+    },
+    "buckets_count": 7,
+    "buckets_total_images": 335,
+    "comment": "7 reviewed-truth evaluation buckets covering both clean negatives and hard-case positives. F1 ranges 0.18 (hardest narrow-style bucket) to 1.00 (clean buckets)."
+  },
+  "training": {
+    "base": "yolo (ultralytics) detection backbone",
+    "regime": "iterative anomaly-only fine-tuning with hard-case anchor injection",
+    "loss": "default ultralytics detection loss"
+  }
+}

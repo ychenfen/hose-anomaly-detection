@@ -1,0 +1,47 @@
+{
+  "name": "hose_wall",
+  "task": "detect",
+  "framework": "ultralytics-yolo",
+  "input_size": 640,
+  "classes": ["hose penetrating the wall"],
+  "display_name": "Hose penetrating the wall",
+  "weights": {
+    "pytorch": "hose_wall_best.pt",
+    "onnx": "hose_wall_best.onnx"
+  },
+  "recommended_runtime": {
+    "min_conf": 0.45,
+    "min_area_ratio": 0.0005,
+    "max_area_ratio": 0.85,
+    "viewer_review_min_conf": 0.25,
+    "notes": "Production runs at 0.45 to suppress false positives. Lower 0.25 threshold is reserved for human-in-the-loop review UIs to surface low-score true positives."
+  },
+  "dataset_stats": {
+    "total_images": 404,
+    "positive_images": 185,
+    "negative_images": 219,
+    "buckets": 4
+  },
+  "validation_best": {
+    "epochs_recorded": 32,
+    "best_epoch_index_1based": 2,
+    "precision": 0.993,
+    "recall": 1.0,
+    "mAP50": 0.995,
+    "mAP50_95": 0.354
+  },
+  "metrics_on_reviewed_truth": {
+    "profile": {"conf": 0.45, "min_area_ratio": 0.0005},
+    "combined": {
+      "tp": 159, "fp": 16, "tn": 203, "fn": 26,
+      "precision": 0.909,
+      "recall": 0.859,
+      "f1": 0.883
+    }
+  },
+  "training": {
+    "base": "yolo (ultralytics) detection backbone",
+    "regime": "iterative train-merge across 4 reviewed-truth buckets with tightened runtime threshold (0.45)",
+    "loss": "default ultralytics detection loss"
+  }
+}

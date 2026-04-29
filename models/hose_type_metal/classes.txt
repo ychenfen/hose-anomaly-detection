@@ -1,0 +1,2 @@
+metal_clad_hose
+non_standard_hose

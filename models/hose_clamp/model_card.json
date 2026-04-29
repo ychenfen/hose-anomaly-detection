@@ -1,0 +1,29 @@
+{
+  "name": "hose_clamp",
+  "task": "detect",
+  "framework": "ultralytics-yolo",
+  "input_size": 640,
+  "classes": ["clamp_abnormal"],
+  "display_name": "Abnormal hose clamp (single-class)",
+  "weights": {
+    "pytorch": "hose_clamp_best.pt",
+    "onnx": "hose_clamp_best.onnx"
+  },
+  "recommended_runtime": {
+    "conf": 0.35,
+    "min_area_ratio": 0.001,
+    "notes": "Single-class detector tuned for abnormal clamp only. Runs at 0.35 / 0.001 to keep clean-negative false rate near zero while preserving recall on positive samples."
+  },
+  "metrics_at_runtime": {
+    "positive_rate": 0.963,
+    "clean_negative_false_rate": 0.005,
+    "mixed_shared_rate": 0.913,
+    "mixed_nonshared_false_rate": 0.003,
+    "extra_negative_false_rate": 0.0
+  },
+  "training": {
+    "base": "yolo (ultralytics) detection backbone",
+    "regime": "abnormal-only label space + direct-negative mining + gentle 2-epoch fine-tune",
+    "loss": "default ultralytics detection loss"
+  }
+}
